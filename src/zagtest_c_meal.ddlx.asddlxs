@@ -1,0 +1,58 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Meal', 
+    typeNamePlural: 'Meals', 
+    title: {
+      type: #STANDARD, 
+      label: 'Meal', 
+      value: 'MealNumber'
+    }
+  }
+}
+annotate view ZAGTEST_C_Meal with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZAGTEST_I_Meal', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Meal', 
+    position: 1 
+  }, 
+  {
+    id: 'ZAGTEST_I_MealText', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Meal Text', 
+    position: 2 , 
+    targetElement: '_MealText'
+  } ]
+  MealNumber;
+  
+  @UI.identification: [ {
+    position: 3 
+  } ]
+  @UI.lineItem: [ {
+    position: 3 
+  } ]
+  MealType;
+  
+  @UI.identification: [ {
+    position: 4 
+  } ]
+  LastChangedAt;
+  
+  @UI.identification: [ {
+    hidden: true, 
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  MealText;
+}

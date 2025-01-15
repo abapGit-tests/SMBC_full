@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'MealText', 
+    typeNamePlural: 'MealTexts', 
+    title: {
+      type: #STANDARD, 
+      label: 'Meal Text', 
+      value: 'Language'
+    }
+  }
+}
+annotate view ZAGTEST_C_MealText with
+{
+  @UI.facet: [ {
+    id: 'ZAGTEST_I_MealText', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Meal Text', 
+    position: 1 
+  } ]
+  @UI.identification: [ {
+    position: 1 , 
+    label: 'Language'
+  } ]
+  @UI.lineItem: [ {
+    position: 1 , 
+    label: 'Language'
+  } ]
+  Language;
+  
+  @UI.identification: [ {
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  MealText;
+}

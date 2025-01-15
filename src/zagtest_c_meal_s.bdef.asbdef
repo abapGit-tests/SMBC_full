@@ -1,0 +1,40 @@
+projection implementation in class ZBP_AGTEST_C_MEAL_S unique;
+strict;
+use draft;
+
+define behavior for ZAGTEST_C_Meal_S alias MealAll
+
+{
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+  use action SelectCustomizingTransptReq;
+
+  use association _Meal { create ( augment ); with draft; }
+}
+
+define behavior for ZAGTEST_C_Meal alias Meal
+
+{
+  field ( modify )
+   MealText;
+
+
+  use update( augment );
+  use delete;
+
+  use association _MealAll { with draft; }
+  use association _MealText { create; with draft; }
+}
+
+define behavior for ZAGTEST_C_MealText alias MealText
+
+{
+  use update;
+  use delete;
+
+  use association _MealAll { with draft; }
+  use association _Meal { with draft; }
+}

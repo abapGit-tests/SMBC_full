@@ -1,0 +1,5 @@
+define service ZAGTEST_MEAL {
+  expose ZAGTEST_C_MEAL_S as MealAll;
+  expose ZAGTEST_C_MEAL as Meal;
+  expose ZAGTEST_C_MEALTEXT as MealText;
+}

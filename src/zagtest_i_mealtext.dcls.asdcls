@@ -1,0 +1,5 @@
+@MappingRole: true
+define role ZAGTEST_I_MealText {
+  grant select on ZAGTEST_I_MealText
+  where INHERITING CONDITIONS FROM ENTITY ZAGTEST_I_Meal;
+}

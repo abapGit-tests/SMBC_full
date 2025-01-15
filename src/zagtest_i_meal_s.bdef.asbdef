@@ -1,0 +1,102 @@
+managed with additional save implementation in class ZBP_AGTEST_I_MEAL_S unique;
+strict;
+with draft;
+
+define behavior for ZAGTEST_I_Meal_S alias MealAll
+draft table ZAGTEST_MEAL_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _Meal { create ( features : instance ); with draft; }
+}
+
+define behavior for ZAGTEST_I_Meal alias Meal
+persistent table ZAGTEST_MEAL
+draft table ZAGTEST_MEAL_D
+etag master LocalLastChangedAt
+lock dependent by _MealAll
+authorization dependent by _MealAll
+
+{
+  field ( mandatory : create )
+   MealNumber;
+
+  field ( readonly )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   MealNumber;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZAGTEST_MEAL
+  {
+    MealNumber = MEAL_NUMBER;
+    MealType2 = MEAL_TYPE;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MealAll { with draft; }
+  association _MealText { create ( features : global ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}
+
+define behavior for ZAGTEST_I_MealText alias MealText
+persistent table ZAGTEST_MEALT
+draft table ZAGTEST_MEALT_D
+etag master LocalLastChangedAt
+lock dependent by _MealAll
+authorization dependent by _MealAll
+
+{
+  field ( mandatory : create )
+   Language;
+
+  field ( readonly )
+   SingletonID,
+   MealNumber,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   Language;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZAGTEST_MEALT
+  {
+    Language = LANGUAGE;
+    MealNumber = MEAL_NUMBER;
+    MealText = MEAL_TEXT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MealAll { with draft; }
+  association _Meal { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}
