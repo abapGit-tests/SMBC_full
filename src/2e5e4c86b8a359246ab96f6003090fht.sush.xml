@@ -30,6 +30,11 @@
      <EXCEP_ICON>@08@</EXCEP_ICON>
     </item>
    </USOBX_EXT>
+   <USOBHASH>
+    <PGMID>R3TR</PGMID>
+    <OBJECT>G4BA</OBJECT>
+    <OBJ_NAME>ZAGTEST_UI_MEAL_O4</OBJ_NAME>
+   </USOBHASH>
   </asx:values>
  </asx:abap>
 </abapGit>
